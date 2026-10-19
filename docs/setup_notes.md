@@ -1,4 +1,4 @@
-# Hướng dẫn Chạy thử Dữ liệu Mẫu & Thiết lập Môi trường (Setup Notes)
+# Hướng dẫn Chạy thử Dữ liệu Mẫu & Thiết lập Môi trường (Setup Notes).
 Tài liệu này hướng dẫn cách đọc dữ liệu mẫu `data/samples/posts_sample.csv`, môi trường Python cần thiết và các lưu ý tái lập cho nhóm nghiên cứu dự án NarrativeCast.
 ---
 ## 1. Môi trường & Thư viện yêu cầu
