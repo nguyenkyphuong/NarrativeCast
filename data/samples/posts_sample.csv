@@ -1,0 +1,6 @@
+post_id,publish_date,user_id,parent_id,parent_user_id,content,url,language,interaction_type,platform,community,sentiment_vader,strict_filter
+p_rd_101,1577836800,usr_a1b2c3d4,NA,NA,"Exploring cross-platform social dynamics in online communities.",https://example.com/social,en,POST,reddit,technology,0.42,0
+c_rd_102,1577837100,usr_e5f6g7h8,p_rd_101,usr_a1b2c3d4,"Great analysis! The dataset structure looks clean.",NA,en,COMMENT,reddit,technology,0.63,0
+p_vt_201,1546300800,usr_9i8j7k6l,NA,NA,"Discussion regarding community moderation policies.",NA,en,POST,voat,technology,0.01,0
+p_bs_301,1704067200,usr_m1n2o3p4,NA,NA,"Testing decentralized protocol interactions on Bluesky.",https://bsky.app,en,POST,bluesky,NA,0.25,0
+p_ko_401,1609459200,usr_q5r6s7t8,NA,NA,"Multilingual user engagement metrics on Koo platform.",NA,en,POST,koo,NA,0.15,0
