@@ -1,0 +1,137 @@
+{
+  "input_file": "data/raw/reddit_technology_madoc-001.parquet",
+  "output_file": "data/processed/reddit_technology_clean.parquet",
+  "pre_cleaning": {
+    "stage": "pre_cleaning",
+    "n_rows": 11766134,
+    "n_cols": 13,
+    "columns": [
+      "post_id",
+      "publish_date",
+      "user_id",
+      "parent_id",
+      "parent_user_id",
+      "content",
+      "url",
+      "language",
+      "interaction_type",
+      "platform",
+      "community",
+      "strict_filter",
+      "sentiment_vader"
+    ],
+    "memory_mb": 9312.7,
+    "dtypes": {
+      "post_id": "object",
+      "publish_date": "int64",
+      "user_id": "object",
+      "parent_id": "object",
+      "parent_user_id": "object",
+      "content": "string",
+      "url": "object",
+      "language": "string",
+      "interaction_type": "string",
+      "platform": "object",
+      "community": "object",
+      "strict_filter": "object",
+      "sentiment_vader": "float64"
+    },
+    "null_counts": {
+      "post_id": 0,
+      "publish_date": 0,
+      "user_id": 0,
+      "parent_id": 9693194,
+      "parent_user_id": 9686745,
+      "content": 0,
+      "url": 10338180,
+      "language": 0,
+      "interaction_type": 0,
+      "platform": 0,
+      "community": 0,
+      "strict_filter": 11766134,
+      "sentiment_vader": 0
+    },
+    "content_null": 0,
+    "interaction_type_dist": {
+      "COMMENT": 10918477,
+      "POST": 847657
+    }
+  },
+  "post_cleaning": {
+    "stage": "post_cleaning",
+    "n_rows": 11597712,
+    "n_cols": 12,
+    "columns": [
+      "post_id",
+      "publish_date",
+      "publish_datetime_utc",
+      "user_id",
+      "interaction_type",
+      "parent_id",
+      "parent_user_id",
+      "content",
+      "content_hash",
+      "word_count",
+      "is_usable_text",
+      "sentiment_vader"
+    ],
+    "memory_mb": 6477.7,
+    "dtypes": {
+      "post_id": "object",
+      "publish_date": "int64",
+      "publish_datetime_utc": "datetime64[ns, UTC]",
+      "user_id": "object",
+      "interaction_type": "category",
+      "parent_id": "object",
+      "parent_user_id": "object",
+      "content": "string",
+      "content_hash": "uint64",
+      "word_count": "int32",
+      "is_usable_text": "bool",
+      "sentiment_vader": "float32"
+    },
+    "null_counts": {
+      "post_id": 0,
+      "publish_date": 0,
+      "publish_datetime_utc": 0,
+      "user_id": 0,
+      "interaction_type": 0,
+      "parent_id": 9561196,
+      "parent_user_id": 9554752,
+      "content": 0,
+      "content_hash": 0,
+      "word_count": 0,
+      "is_usable_text": 0,
+      "sentiment_vader": 0
+    },
+    "content_null": 0,
+    "date_min": "2014-01-01 00:00:16+00:00",
+    "date_max": "2020-12-31 23:59:25+00:00",
+    "interaction_type_dist": {
+      "COMMENT": 10829229,
+      "POST": 768483
+    },
+    "word_count_stats": {
+      "mean": 37.17,
+      "median": 20,
+      "p05": 4,
+      "p95": 123,
+      "p99": 252,
+      "max": 5145
+    },
+    "n_usable": 10844716,
+    "n_unusable": 752996,
+    "n_unique_hash": 11375527
+  },
+  "drop_log": {
+    "garbage_null_nan": 0,
+    "garbage_empty_whitespace": 40059,
+    "garbage_placeholder_exact": 0,
+    "garbage_pseudo_null": 6,
+    "garbage_lt_3_alpha": 15994,
+    "bot_automod_boilerplate": 39746,
+    "bot_spam_test_message": 13596,
+    "bot_deleted_by_user": 798,
+    "post_duplicate": 58223
+  }
+}
