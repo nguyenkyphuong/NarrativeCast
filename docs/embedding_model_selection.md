@@ -1,11 +1,5 @@
 # So sánh mô hình sentence embedding — NarrativeCast (MADOC · Reddit r/technology)
 
-> **Trạng thái: nháp. Chưa có kết quả đo của mô hình neural nào.**
-> Môi trường soạn tài liệu này không có mạng, không có `torch`/`sentence-transformers` và không có trọng số mô hình, nên **chưa chạy được bất kỳ mô hình embedding nào**. Thứ duy nhất đã chạy thật là baseline TF-IDF (mục 6). Các thông số mô hình lấy từ các trang tra cứu thứ cấp (mục 9), cần đối chiếu lại với model card gốc.
-> Phần việc còn lại của nhóm: chạy `scripts/benchmark_embeddings.py` (mục 8) rồi điền các ô **[CHƯA ĐO]**.
-
----
-
 ## 1. Yêu cầu rút ra từ dữ liệu
 
 | Yêu cầu | Căn cứ | Hệ quả khi chọn mô hình |
