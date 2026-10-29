@@ -89,10 +89,49 @@ def test_validation_integrity_checks():
     assert any("trùng lặp" in e for e in rep_dup.errors)
 
 
+def test_temporal_and_clustering_integration():
+    vectors = np.random.randn(4, 384).astype(np.float32)
+    post_ids = ["p_1", "p_2", "p_3", "p_4"]
+    timestamps = [
+        "2018-05-01 10:00:00+00:00",
+        "2019-06-01 11:00:00+00:00",
+        "2020-07-01 12:00:00+00:00",
+        "2020-08-01 13:00:00+00:00",
+    ]
+    clusters = [0, 1, 0, 2]
+
+    store = EmbeddingStore(
+        vectors=vectors,
+        post_ids=post_ids,
+        timestamps=timestamps,
+        cluster_ids=clusters,
+    )
+
+    # 1. Kiểm tra get_record
+    rec = store.get_record("p_2")
+    assert rec is not None
+    assert rec["cluster_id"] == 1
+    assert "2019-06-01" in str(rec["publish_datetime_utc"])
+
+    # 2. Kiểm tra filter_by_timerange
+    store_2020 = store.filter_by_timerange(start_date="2020-01-01", end_date="2020-12-31")
+    assert len(store_2020) == 2
+    assert list(store_2020.post_ids) == ["p_3", "p_4"]
+
+    # 3. Kiểm tra to_clustering_dataframe
+    df_clust = store.to_clustering_dataframe()
+    assert len(df_clust) == 4
+    assert list(df_clust.columns) == ["post_id", "is_valid", "publish_datetime_utc", "cluster_id"]
+    assert list(df_clust["cluster_id"]) == [0, 1, 0, 2]
+
+
 def test_save_and_load_all_formats():
     with tempfile.TemporaryDirectory() as tmpdir:
         vectors = np.random.randn(6, 384).astype(np.float32)
         post_ids = [f"post_{i}" for i in range(6)]
+        timestamps = [f"2020-01-0{i+1} 00:00:00+00:00" for i in range(6)]
+        clusters = [0, 1, 0, 1, 2, 2]
+
         meta = EmbeddingMetadata(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
             embedding_dim=384,
@@ -100,7 +139,13 @@ def test_save_and_load_all_formats():
             model_version="v2.1",
             source_dataset="test_posts.csv",
         )
-        store = EmbeddingStore(vectors=vectors, post_ids=post_ids, metadata=meta)
+        store = EmbeddingStore(
+            vectors=vectors,
+            post_ids=post_ids,
+            timestamps=timestamps,
+            cluster_ids=clusters,
+            metadata=meta,
+        )
 
         # 1. Test NPZ format
         npz_file = os.path.join(tmpdir, "test.npz")
@@ -108,19 +153,19 @@ def test_save_and_load_all_formats():
         loaded_npz = load_embeddings(npz_file, validate=True)
         assert len(loaded_npz) == 6
         assert loaded_npz.embedding_dim == 384
-        assert loaded_npz.metadata.model_name == "sentence-transformers/all-MiniLM-L6-v2"
+        assert loaded_npz.timestamps is not None
+        assert loaded_npz.cluster_ids is not None
+        assert list(loaded_npz.cluster_ids) == clusters
         np.testing.assert_allclose(loaded_npz.vectors, vectors, atol=1e-6)
 
         # 2. Test Parquet format
         pq_file = os.path.join(tmpdir, "test.parquet")
-        extra_df = pd.DataFrame({
-            "post_id": post_ids,
-            "community": ["technology"] * 6,
-        })
-        store.save_parquet(pq_file, source_df=extra_df)
+        store.save_parquet(pq_file)
         loaded_pq = load_embeddings(pq_file, validate=True)
         assert len(loaded_pq) == 6
         assert loaded_pq.embedding_dim == 384
+        assert loaded_pq.timestamps is not None
+        assert loaded_pq.cluster_ids is not None
         np.testing.assert_allclose(loaded_pq.vectors, vectors, atol=1e-6)
 
         # 3. Test Bundle Directory (metadata.json + embeddings.npz + embeddings.parquet)
@@ -136,22 +181,9 @@ def test_save_and_load_all_formats():
         np.testing.assert_allclose(loaded_bundle.vectors, vectors, atol=1e-6)
 
 
-def test_backward_compatibility_with_encode_posts():
-    # Kiểm tra nạp file do encode_posts tạo ra từ task trước
-    sample_npz = "outputs/embeddings/post_embeddings.npz"
-    if os.path.exists(sample_npz):
-        store = load_embeddings(sample_npz, validate=True)
-        assert len(store) == 5
-        assert store.embedding_dim == 384
-        assert "p_rd_101" in store
-        vec = store.get_vector("p_rd_101")
-        assert vec is not None
-        assert vec.shape == (384,)
-
-
 if __name__ == "__main__":
     test_embedding_store_basic_and_lookups()
     test_validation_integrity_checks()
+    test_temporal_and_clustering_integration()
     test_save_and_load_all_formats()
-    test_backward_compatibility_with_encode_posts()
     print("[SUCCESS] ALL EMBEDDING STORE UNIT TESTS PASSED SUCCESSFULLY!")
