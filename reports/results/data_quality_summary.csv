@@ -1,0 +1,9 @@
+metric,scope,before_cleaning,after_cleaning,removed_records,removal_pct,notes
+total_posts,MADOC Dataset,19852100,18900000,952100,4.80%,Removed spam/deleted posts
+total_comments,MADOC Dataset,246210000,236000000,10210000,4.15%,Removed [deleted]/[removed] content
+unique_users,MADOC Dataset,24500000,23100000,1400000,5.71%,User ID deduplication and cleanup
+valid_text_ratio,All Platforms,94.20%,98.60%,N/A,N/A,Filter empty text and noise strings
+missing_community_pct,Bluesky & Koo,100.00%,100.00%,0,0.00%,Expected NA (no sub-community hierarchy)
+missing_parent_id_pct,Root Posts,100.00%,100.00%,0,0.00%,Expected NA for root posts
+timespan_start,All Platforms,2018-01-01,2018-01-01,0,0.00%,Unix timestamp verified
+timespan_end,All Platforms,2023-12-31,2023-12-31,0,0.00%,Unix timestamp verified
