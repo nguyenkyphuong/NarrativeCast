@@ -27,6 +27,10 @@ data/raw/
 data/interim/
 data/processed/
 
+# Outputs & Generated Embeddings
+outputs/embeddings/*.npz
+outputs/embeddings/*.parquet
+
 # Model artifacts
 models/
 *.pt
@@ -41,3 +45,4 @@ logs/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
