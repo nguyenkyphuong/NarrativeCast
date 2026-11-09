@@ -1,0 +1,4 @@
+﻿candidate_id,name,parent_domain,records,posts,comments,complete_weeks,dense_week_fraction,weekly_p10,weekly_median,zero_week_count,technical_status,failed_checks,task4_status
+bigtech_competition,Chống độc quyền và cạnh tranh của Big Tech,Big Tech Antitrust & Regulation,12615,433,12182,260,0.9884615384615385,19.0,38.0,0,PASS,,PENDING_REVIEW
+digital_privacy,Quyền riêng tư và giám sát dữ liệu số,Cybersecurity & Privacy,45423,3609,41814,260,1.0,84.9,148.0,0,PASS,,PENDING_REVIEW
+net_neutrality,Chính sách trung lập mạng Internet,"Telecom, Net Neutrality, Web & Crypto",98261,6538,91723,260,0.9961538461538462,40.900000000000006,228.5,0,PASS,,PENDING_REVIEW
