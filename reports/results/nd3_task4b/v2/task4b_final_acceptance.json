@@ -1,0 +1,49 @@
+{
+  "task": "ND3.4b",
+  "scope": "Net Neutrality - FCC Regulation",
+  "run_id": "nd3_4b_scope_v2_candidate",
+  "timestamp_utc": "2026-11-10T07:18:46.446282+00:00",
+  "status": "TECHNICAL_ACCEPTANCE_PASS",
+  "n_posts": 7244,
+  "selected_k": 24,
+  "selected_seed": 42,
+  "algorithm": "MiniBatchKMeans",
+  "checks": {
+    "scope_7244": true,
+    "all_posts_assigned": true,
+    "unique_post_ids": true,
+    "selected_k_24": true,
+    "model_manifest_consistency": true,
+    "cluster_size_sum": true,
+    "statistics_match_assignments": true,
+    "comparison_complete": true,
+    "all_clusters_sampled": true,
+    "labels_24": true,
+    "evidence_valid": true,
+    "named_assignments_complete": true,
+    "notebook_saved": true
+  },
+  "limitations": [
+    "AI-assisted scope labeling",
+    "Keyword-based candidate retrieval",
+    "Temporary topic labels are not narrative gold",
+    "Moderate clustering stability",
+    "Retrospective clustering, not forecasting validation"
+  ],
+  "artifact_hashes": {
+    "embedding_mapping_audit.csv": "9671af2fbe6252f427f876a404664eb82a47d07b68ead5e0dd37da372c6c25a8",
+    "experiment_seed_runs.csv": "180b6e7c1e66d62d04929b5c8b118dcb7c06b56d5a2837ff71d2f808bec93dfc",
+    "stability_pairwise_ari.csv": "eb3bed35f63a1b66f7f21d3aacb7dd1d9a61c47d8880aab13b3bb998c63acd16",
+    "experiment_comparison.csv": "dabac5efd6eac92e21ad5f86338355beded70df5e878bb6b20c69e39e8816fa4",
+    "experiment_ranking.csv": "34fc13c20622f87b92348fbf0b51f330b5babc81d93bb122af5cb73e818c5a2a",
+    "cluster_assignments.csv": "bf9eef0185fba4703525568578baf87a5bd6b7b0cd1ecca1fc8df45cd82a28a7",
+    "cluster_statistics.csv": "bba8c725e0873003e4ea60821e8d01c68bebcf34f4c90e71bd025e48c3143207",
+    "cluster_labeling_samples.csv": "b2cde0cbc63aa3844d2aaaf50193f20131cddf3fa2e7beaca83fd1c54a4b915c",
+    "cluster_statistics_labeled.csv": "53170308813cd2520a5ed6e5ce7e5912a78947021eb4bb6dfffb6caf3e7d979e",
+    "cluster_assignments_labeled.csv": "fa400670aa99b79a3c062ab802319db09355e2eb38f0a5faa98a2136383554bb",
+    "nd3_task4b_v2_temporary_labels.csv": "c4038e79e518dab1ca1b19e273338edce984e61a590273609669f60c347a0d7e",
+    "candidate_clustering_model.joblib": "a7b73bb27e8f2489444a606de2fa14d22e58db1122e232bc667dcf8cd09b4db7",
+    "cluster_sizes.png": "7642e466378f75a76835b6265dfad36267c1b731ccf706308187367e65cec5ac",
+    "experiment_manifest.json": "09f376a6915cba80ad156e1e0459e85f50a80d5fd80cb56b71500585cb8cb052"
+  }
+}

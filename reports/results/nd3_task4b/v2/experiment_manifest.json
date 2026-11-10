@@ -1,0 +1,37 @@
+{
+  "task": "ND3.4b",
+  "run_id": "nd3_4b_scope_v2_candidate",
+  "status": "TECHNICAL_PASS_SCIENTIFIC_REVIEW_PENDING",
+  "scope_version": "v2_ai_assisted",
+  "scope_post_count": 7244,
+  "embedding_dim": 384,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "algorithm": "MiniBatchKMeans",
+  "tested_k": [
+    12,
+    24,
+    32
+  ],
+  "tested_seeds": [
+    11,
+    23,
+    42,
+    71,
+    101
+  ],
+  "candidate_k": 24,
+  "candidate_seed": 42,
+  "final_k_approved": false,
+  "temporary_labels_approved": false,
+  "technical_checks": {
+    "full_embedding_mapping": true,
+    "all_posts_assigned": true,
+    "unique_post_ids": true,
+    "expected_cluster_count": true,
+    "cluster_size_consistency": true,
+    "all_clusters_sampled": true,
+    "all_seed_runs_completed": true,
+    "all_pairwise_ari_completed": true,
+    "all_artifacts_saved": true
+  }
+}
