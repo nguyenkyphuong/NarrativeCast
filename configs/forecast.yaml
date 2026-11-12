@@ -1,0 +1,72 @@
+# NarrativeCast — ND4 Task 1
+status: PROTOCOL_SPECIFIED
+forecasting_authorized: false
+decision: EXPAND_CONDITIONALLY
+
+data:
+  corpus: data/processed/reddit_technology_clean.parquet
+  post_registry: data/interim/post_registry.csv
+  scope_baseline: reports/results/nd3_task4b/scope_v2_ai_approved.csv
+  scope_expanded: data/D4/net_neutrality_scope_expanded_v1.csv
+  scope_version: expanded_v1
+  scope_status: PROVISIONAL_AI_ASSISTED
+  baseline_posts: 7244
+  expanded_posts: 7331
+  added_lexical_posts: 44
+  added_semantic_posts: 43
+  human_verified: false
+
+comment_policy:
+  source: direct_parent_link
+  require_usable_text: true
+  max_parent_lag_days: 7
+  use_as_context_only: true
+  primary_target_includes_comments: false
+  per_parent_week_cap_sensitivity: 20
+  raw_count_comparator: true
+  log_thread_activity: true
+
+time:
+  timezone: UTC
+  unit: week
+  week_start: MONDAY
+  interval_convention: half_open
+  observation_days: 7
+  observation_sensitivity_days: [14, 28]
+  horizon_days: 7
+  extension_horizon_days: [3, 14]
+  first_complete_week: '2014-01-06'
+  last_complete_week: '2020-12-21'
+
+split:
+  train_years: [2014, 2015, 2016, 2017]
+  validation_years: [2018]
+  test_years: [2019, 2020]
+  shuffle: false
+  fit_future_data: false
+  rolling_origin_past_only: true
+
+candidate_policy:
+  candidate_set_at_origin: past_only
+  historical_nd3_full_period_clusters_allowed: false
+  retrospective_nd3_cluster_count: 24
+  candidate_generation_validated: false
+  allow_new_candidates_from_past: true
+  future_based_candidate_naming: false
+
+target:
+  name: post_based_narrative_prominence
+  numerator: future_posts_assigned_to_candidate
+  denominator: all_valid_in_scope_future_posts
+  include_noise_in_denominator: true
+  include_unassigned_in_denominator: true
+  zero_denominator: undefined
+  candidate_membership_fixed_at_origin: true
+
+gates:
+  corpus_integrity: PASS
+  scope_expansion: PROVISIONAL
+  comment_linkage: PASS
+  retrospective_cluster_coverage: PASS
+  candidate_leakage: NOT_VERIFIED
+  forecasting: NO_GO_PENDING_CANDIDATE_VALIDATION
