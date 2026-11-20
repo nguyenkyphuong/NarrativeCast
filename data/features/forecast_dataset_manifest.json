@@ -1,0 +1,60 @@
+{
+  "created_at_utc": "2026-11-17T19:39:52.270131+00:00",
+  "splits_config": {
+    "timezone": "UTC",
+    "observation_days": 7,
+    "horizon_days": 7,
+    "first_complete_week": "2014-01-06T00:00:00+00:00",
+    "last_complete_week": "2020-12-21T00:00:00+00:00",
+    "dataset_end_utc": "2020-12-28T00:00:00+00:00",
+    "train_start_utc": "2014-01-06T00:00:00+00:00",
+    "validation_start_utc": "2018-01-01T00:00:00+00:00",
+    "test_start_utc": "2019-01-01T00:00:00+00:00",
+    "min_historical_posts": 5
+  },
+  "leakage_audit": {
+    "all_train_label_end_lt_validation_start": true,
+    "all_validation_label_end_lt_test_start": true,
+    "no_missing_future_at_end_of_period": true,
+    "train_label_end_max_utc": "2017-12-25T00:00:00+00:00",
+    "validation_start_utc": "2018-01-01T00:00:00+00:00",
+    "validation_label_end_max_utc": "2018-12-31T00:00:00+00:00",
+    "test_start_utc": "2019-01-01T00:00:00+00:00",
+    "test_label_end_max_utc": "2020-12-28T00:00:00+00:00",
+    "dataset_end_utc": "2020-12-28T00:00:00+00:00",
+    "timestamps_all_utc": true
+  },
+  "summary": {
+    "total_rows": 20656,
+    "total_purged_windows": 2,
+    "unique_origins_total": 362,
+    "train_origins_count": 207,
+    "validation_origins_count": 52,
+    "test_origins_count": 103,
+    "train_rows_count": 10926,
+    "validation_rows_count": 3241,
+    "test_rows_count": 6489,
+    "candidates_evaluated_count": 63,
+    "defined_target_rows": 19204,
+    "undefined_target_rows": 1452,
+    "eligible_origins_count": 239
+  },
+  "purged_windows": [
+    {
+      "forecast_origin_utc": "2017-12-25T00:00:00+00:00",
+      "history_start_utc": "2017-12-18T00:00:00+00:00",
+      "history_end_utc": "2017-12-25T00:00:00+00:00",
+      "label_start_utc": "2017-12-25T00:00:00+00:00",
+      "label_end_utc": "2018-01-01T00:00:00+00:00",
+      "reason": "touches_next_split_or_exceeds_dataset_boundary"
+    },
+    {
+      "forecast_origin_utc": "2018-12-31T00:00:00+00:00",
+      "history_start_utc": "2018-12-24T00:00:00+00:00",
+      "history_end_utc": "2018-12-31T00:00:00+00:00",
+      "label_start_utc": "2018-12-31T00:00:00+00:00",
+      "label_end_utc": "2019-01-07T00:00:00+00:00",
+      "reason": "touches_next_split_or_exceeds_dataset_boundary"
+    }
+  ]
+}
