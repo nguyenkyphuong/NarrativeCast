@@ -1,0 +1,65 @@
+# NarrativeCast — Temporal Split & Leakage Prevention Configuration
+# Defines chronological partitions, rolling-origin windows, and anti-leakage gates.
+# Protocol: UTC, weekly rolling-origin with purged split boundaries.
+
+protocol_version: "nd4_temporal_split_v1"
+timezone: "UTC"
+unit: "week"
+week_start: "MONDAY"
+interval_convention: "half_open"  # [start, end)
+
+time:
+  observation_days: 7
+  observation_sensitivity_days: [14, 28]
+  horizon_days: 7
+  extension_horizon_days: [3, 14]
+  first_complete_week: "2014-01-06T00:00:00Z"
+  last_complete_week: "2020-12-21T00:00:00Z"
+  dataset_end_utc: "2020-12-28T00:00:00Z"
+
+splits:
+  train:
+    years: [2014, 2015, 2016, 2017]
+    start_utc: "2014-01-06T00:00:00Z"
+    first_origin_utc: "2014-01-13T00:00:00Z"
+    cutoff_utc: "2018-01-01T00:00:00Z"       # validation_start boundary
+    max_label_end_utc: "2017-12-25T00:00:00Z" # strictly < validation_start
+    description: "Chronological development training partition (2014-2017)"
+  validation:
+    years: [2018]
+    start_utc: "2018-01-01T00:00:00Z"
+    first_origin_utc: "2018-01-01T00:00:00Z"
+    cutoff_utc: "2019-01-01T00:00:00Z"       # test_start boundary
+    max_label_end_utc: "2018-12-31T00:00:00Z" # strictly < test_start
+    description: "Chronological model validation & hyperparameter tuning partition (2018)"
+  test:
+    years: [2019, 2020]
+    start_utc: "2019-01-01T00:00:00Z"
+    first_origin_utc: "2019-01-07T00:00:00Z"
+    end_utc: "2020-12-28T00:00:00Z"
+    last_origin_utc: "2020-12-21T00:00:00Z"
+    max_label_end_utc: "2020-12-28T00:00:00Z" # bounded by dataset end
+    description: "Held-out out-of-time test partition (2019-2020)"
+
+leakage_prevention:
+  enforce_purged_cutoffs: true
+  train_label_end_must_be_strictly_before_validation_start: true
+  validation_label_end_must_be_strictly_before_test_start: true
+  no_missing_future_at_end_of_period: true
+  no_full_dataset_fitting: true
+  rolling_origin_past_only: true
+  fit_future_data: false
+  allow_retrospective_nd3_clusters_as_features: false
+
+target:
+  name: "post_based_narrative_prominence"
+  numerator: "future_posts_assigned_to_candidate"
+  denominator: "all_valid_in_scope_future_posts"
+  include_noise_in_denominator: true
+  include_unassigned_in_denominator: true
+  zero_denominator_policy: "undefined_nan"
+  candidate_membership_fixed_at_origin: true
+
+evaluation:
+  min_historical_posts_for_eval: 5
+  top_k_candidates: [1, 3]
