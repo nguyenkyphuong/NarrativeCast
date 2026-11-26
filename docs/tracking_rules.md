@@ -6,6 +6,8 @@ Phạm vi áp dụng: Bộ máy theo dõi narrative theo thứ tự thời gian,
 
 Tài liệu này mô tả bộ máy theo dõi narrative theo thời gian không dùng dữ liệu tương lai trong `src/tracking/track_narratives.py`, gồm các tham số cấu hình, công thức tính toán, máy trạng thái vòng đời, quy ước giá trị `0` và `NaN` cho pipeline downstream, ranh giới chống data leakage, schema đầu ra và kết quả kiểm định qua `scripts/audit_tracking_registry.py` cùng `data/interim/narrative_registry_manifest.json`.
 
+> Lưu ý bàn giao downstream: Dùng `load_frozen_registry_at_cutoff()` để lấy snapshot trạng thái và centroid tại đúng `window_end == cutoff_utc` (nếu cần tính đặc trưng lag/rolling nhiều tuần thì đọc `data/interim/narrative_registry.parquet` và cắt `window_end <= cutoff_utc`); không join `narrative_registry_summary.parquet` vào tập huấn luyện và không dùng `fillna(0)` toàn bảng.
+
 ## Phạm vi dữ liệu, phân chia thời gian và lưới lịch UTC
 
 ### Định danh dữ liệu và phạm vi
